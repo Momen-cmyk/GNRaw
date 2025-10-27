@@ -70,7 +70,7 @@
                             <label class="form-label">Category Image</label>
                             @if ($category->image)
                                 <div class="mb-3">
-                                    <img src="{{ asset($category->image_url) }}" alt="{{ $category->name }}"
+                                    <img src="{{ $category->image_url }}" alt="{{ $category->name }}"
                                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;"
                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                     <div

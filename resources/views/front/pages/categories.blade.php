@@ -24,8 +24,7 @@
                         <div class="category-card">
                             <div class="category-image">
                                 @if ($category->image)
-                                    <img src="{{ asset($category->image_url) }}" alt="{{ $category->name }}"
-                                        class="img-fluid"
+                                    <img src="{{ $category->image_url }}" alt="{{ $category->name }}" class="img-fluid"
                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                     <div class="category-icon" style="display: none;">
                                         <i class="fa fa-pills"></i>

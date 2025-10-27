@@ -66,7 +66,7 @@
                         <tr>
                             <td>
                                 @if ($category->image)
-                                    <img src="{{ asset($category->image_url) }}" alt="{{ $category->name }}"
+                                    <img src="{{ $category->image_url }}" alt="{{ $category->name }}"
                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;"
                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                     <div
