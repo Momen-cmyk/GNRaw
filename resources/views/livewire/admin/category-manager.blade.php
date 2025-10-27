@@ -1,14 +1,4 @@
 <div>
-    {{-- Success Message --}}
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
     @if (!$showForm)
         {{-- Categories List --}}
         <div class="card-box">
@@ -89,9 +79,14 @@
         </div>
     @else
         {{-- Category Form --}}
-        <div class="card-box">
+        <div class="card-box mb-30">
             <div class="pd-20">
-                <h4 class="text-blue h4">{{ $editing_id ? 'Edit' : 'Create' }} Category</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="text-blue h4">{{ $editing_id ? 'Edit' : 'Create' }} Category</h4>
+                    <button wire:click="cancel" class="btn btn-secondary">
+                        <i class="icon-copy fa fa-times"></i> Cancel
+                    </button>
+                </div>
             </div>
             <div class="pd-20">
                 <form wire:submit.prevent="save">
@@ -195,7 +190,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group text-right">
+                        <button type="button" wire:click="cancel" class="btn btn-secondary mr-2">
+                            <i class="icon-copy fa fa-times"></i> Cancel
+                        </button>
                         <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
                             <span wire:loading.remove>
                                 <i class="icon-copy fa fa-save"></i> {{ $editing_id ? 'Update' : 'Create' }} Category
@@ -204,7 +202,6 @@
                                 <i class="fa fa-spinner fa-spin"></i> Saving...
                             </span>
                         </button>
-                        <button type="button" wire:click="cancel" class="btn btn-secondary">Cancel</button>
                     </div>
                 </form>
             </div>

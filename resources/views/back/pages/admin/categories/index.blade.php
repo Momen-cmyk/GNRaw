@@ -1,9 +1,17 @@
 @extends('back.layout.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Categories')
 
+@push('stylesheets')
+    @livewireStyles
+@endpush
+
 @section('content')
     @livewire('admin.category-manager')
 @endsection
+
+@push('scripts')
+    @livewireScripts
+@endpush
 
 {{-- Old implementation kept for reference
 @section('content')

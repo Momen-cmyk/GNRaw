@@ -131,8 +131,19 @@ class CategoryManager extends Component
             $imagePath = $this->image->storeAs('categories', $imageName, 'public');
             $data['image'] = str_replace('\\', '/', $imagePath);
 
+            // Copy to public/storage for XAMPP compatibility (Windows symlink issues)
+            $storagePath = Storage::disk('public')->path($imagePath);
+            $publicPath = public_path('storage/' . $imagePath);
+            if (!file_exists(dirname($publicPath))) {
+                mkdir(dirname($publicPath), 0755, true);
+            }
+            copy($storagePath, $publicPath);
+
             Log::info('Category image uploaded', [
                 'path' => $data['image'],
+                'storage_path' => $storagePath,
+                'public_path' => $publicPath,
+                'copied' => file_exists($publicPath),
                 'category_id' => $this->editing_id
             ]);
         }
@@ -141,14 +152,30 @@ class CategoryManager extends Component
         if ($this->editing_id) {
             $category = ProductCategory::findOrFail($this->editing_id);
             $category->update($data);
-            session()->flash('success', 'Category updated successfully!');
+            // Refresh to get updated image URL
+            $category->refresh();
+            $this->dispatch('showToastr', [
+                'type' => 'success',
+                'message' => 'Category updated successfully!'
+            ]);
         } else {
-            ProductCategory::create($data);
-            session()->flash('success', 'Category created successfully!');
+            $category = ProductCategory::create($data);
+            $this->dispatch('showToastr', [
+                'type' => 'success',
+                'message' => 'Category created successfully!'
+            ]);
         }
 
         $this->loadCategories();
-        $this->cancel();
+
+        // Don't cancel if editing - stay in edit mode
+        if (!$this->editing_id) {
+            $this->cancel();
+        } else {
+            // Update preview URL after save
+            $this->previewImageUrl = $category->image ? ('/storage/' . str_replace('\\', '/', $category->image)) : null;
+            $this->showImagePreview = !empty($category->image);
+        }
     }
 
     public function delete($id)
@@ -161,7 +188,10 @@ class CategoryManager extends Component
         }
 
         $category->delete();
-        session()->flash('success', 'Category deleted successfully!');
+        $this->dispatch('showToastr', [
+            'type' => 'success',
+            'message' => 'Category deleted successfully!'
+        ]);
         $this->loadCategories();
     }
 
