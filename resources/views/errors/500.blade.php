@@ -129,7 +129,7 @@
 <body>
     <div class="error-container">
         <div class="error-icon">
-            <i class="fas fa-exclamation-triangle"></i>
+            <i class="fa fa-exclamation-triangle"></i>
         </div>
         <div class="error-code">500</div>
         <h1 class="error-title">Server Error</h1>
@@ -137,9 +137,9 @@
             later.</p>
         <div class="d-flex flex-column flex-md-row justify-content-center">
             <a href="{{ url()->previous() }}" class="btn-home">
-                <i class="fas fa-arrow-left"></i> Go Back</a>
+                <i class="fa fa-arrow-left"></i> Go Back</a>
             <a href="{{ route('home') }}" class="btn-refresh">
-                <i class="fas fa-home"></i> Go Home</a>
+                <i class="fa fa-home"></i> Go Home</a>
         </div>
     </div>
 </body>

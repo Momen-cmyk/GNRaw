@@ -129,7 +129,7 @@
 <body>
     <div class="error-container">
         <div class="error-icon">
-            <i class="fas fa-clock"></i>
+            <i class="fa fa-clock"></i>
         </div>
         <div class="error-code">419</div>
         <h1 class="error-title">Page Expired</h1>
@@ -139,10 +139,10 @@
         </p>
         <div class="d-flex flex-column flex-md-row justify-content-center">
             <a href="{{ url()->previous() }}" class="btn-home">
-                <i class="fas fa-arrow-left"></i> Go Back
+                <i class="fa fa-arrow-left"></i> Go Back
             </a>
             <a href="{{ route('home') }}" class="btn-refresh">
-                <i class="fas fa-home"></i> Go Home
+                <i class="fa fa-home"></i> Go Home
             </a>
         </div>
     </div>
