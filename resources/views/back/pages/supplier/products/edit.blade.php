@@ -258,7 +258,146 @@
             </div>
         </div>
     </div>
+
+    <!-- Comments Section -->
+    @if(count($comments) > 0)
+    <div class="row mt-4">
+        <div class="col-xl-12 mb-30">
+            <div class="card-box height-100-p pd-20">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0">
+                        <i class="fa fa-comments"></i> Admin Comments
+                        @if($urgentCommentsCount > 0)
+                            <span class="badge bg-danger ms-2">{{ $urgentCommentsCount }} Urgent</span>
+                        @endif
+                        @if($unreadCommentsCount > 0)
+                            <span class="badge bg-warning ms-2">{{ $unreadCommentsCount }} Unread</span>
+                        @endif
+                    </h4>
+                </div>
+
+                <div class="comments-list">
+                    @foreach($comments as $comment)
+                        <div class="comment-item {{ $comment->is_urgent ? 'border-danger border-start border-3' : ($comment->is_read_by_supplier ? '' : 'border-primary border-start border-3') }} p-3 mb-3 rounded">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <strong class="me-2">{{ $comment->admin->name ?? 'Admin' }}</strong>
+                                        <small class="text-muted">
+                                            <i class="fa fa-clock"></i> {{ $comment->created_at->format('M d, Y H:i') }}
+                                        </small>
+                                        @if($comment->is_urgent)
+                                            <span class="badge bg-danger ms-2">Urgent</span>
+                                        @endif
+                                        @if(!$comment->is_read_by_supplier)
+                                            <span class="badge bg-primary ms-2">New</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                @if(!$comment->is_read_by_supplier)
+                                    <button class="btn btn-sm btn-primary"
+                                            onclick="markCommentRead({{ $comment->id }})"
+                                            data-comment-id="{{ $comment->id }}">
+                                        <i class="fa fa-check"></i> Mark as Read
+                                    </button>
+                                @else
+                                    <small class="text-muted">
+                                        <i class="fa fa-check-circle"></i> Read
+                                        @if($comment->read_at)
+                                            {{ $comment->read_at->format('M d, Y H:i') }}
+                                        @endif
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="comment-content">
+                                <p class="mb-0">{{ $comment->comment }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection
+
+@push('styles')
+<style>
+    .comment-item {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        transition: all 0.3s ease;
+    }
+
+    .comment-item:hover {
+        background-color: #e9ecef;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .comment-item.border-danger {
+        background-color: #fff5f5;
+    }
+
+    .comment-item.border-primary {
+        background-color: #f0f8ff;
+    }
+
+    .comment-content {
+        color: #495057;
+        line-height: 1.6;
+    }
+
+    [data-theme="dark"] .comment-item {
+        background-color: #2c3e50;
+        border-color: #34495e;
+    }
+
+    [data-theme="dark"] .comment-item:hover {
+        background-color: #34495e;
+    }
+
+    [data-theme="dark"] .comment-content {
+        color: #ecf0f1;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+    function markCommentRead(commentId) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '{{ csrf_token() }}';
+
+        fetch('{{ url("/supplier/products") }}/' + commentId + '/mark-comment-read', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                _method: 'POST'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const commentElement = document.querySelector(`[data-comment-id="${commentId}"]`);
+                if (commentElement) {
+                    commentElement.closest('.comment-item').classList.remove('border-primary');
+                    commentElement.closest('.comment-item').classList.add('border-secondary');
+                    commentElement.remove();
+                }
+            } else {
+                alert('Failed to mark comment as read');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred');
+        });
+    }
+</script>
+@endpush
 
 @push('styles')
     <style>

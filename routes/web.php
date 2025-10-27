@@ -2,6 +2,9 @@
 
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Log;
+    use Illuminate\Support\Facades\Storage;
+    use Illuminate\Http\Request;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\AdminController;
     use App\Http\Controllers\SupplierController;
@@ -24,7 +27,7 @@
 
     // Test route for category upload debugging
     Route::post('/test-category-upload', function (Request $request) {
-        \Log::info('Test upload route called', [
+        Log::info('Test upload route called', [
             'has_file' => $request->hasFile('image'),
             'all_files' => $request->allFiles(),
             'form_data' => $request->all()
@@ -39,7 +42,7 @@
                 'success' => true,
                 'message' => 'File uploaded successfully',
                 'path' => $imagePath,
-                'url' => \Storage::disk('public')->url($imagePath)
+                'url' => Storage::disk('public')->url($imagePath)
             ]);
         }
 
@@ -57,7 +60,7 @@
                 'category_name' => $category->name,
                 'image_path' => $category->image,
                 'image_url' => $category->image_url,
-                'file_exists' => \Storage::disk('public')->exists($category->image),
+                'file_exists' => Storage::disk('public')->exists($category->image),
                 'direct_url' => url('storage/' . $category->image)
             ]);
         }
@@ -468,26 +471,46 @@
 
     // Document viewer route with favicon
     Route::get('/document/{path}', function ($path) {
-        $filePath = storage_path('app/public/' . $path);
+        try {
+            $filePath = storage_path('app/public/' . $path);
 
-        if (!file_exists($filePath)) {
-            abort(404);
-        }
-
-        $mimeType = mime_content_type($filePath);
-        $fileName = basename($filePath);
-
-        // For images, show them in a proper HTML page with favicon
-        if (str_starts_with($mimeType, 'image/')) {
-            return view('document-viewer', [
-                'filePath' => asset('storage/' . $path),
-                'fileName' => $fileName,
-                'mimeType' => $mimeType
+            // Log the path for debugging
+            Log::info('Document viewer requested', [
+                'path' => $path,
+                'full_path' => $filePath,
+                'exists' => file_exists($filePath)
             ]);
-        }
 
-        // For other files, serve directly
-        return response()->file($filePath);
+            if (!file_exists($filePath)) {
+                // Return a friendly error page
+                return response()->view('errors.document-not-found', [
+                    'path' => $path
+                ], 404);
+            }
+
+            $mimeType = mime_content_type($filePath);
+            $fileName = basename($filePath);
+
+            // For images, show them in a proper HTML page with favicon
+            if (str_starts_with($mimeType, 'image/')) {
+                return view('document-viewer', [
+                    'filePath' => asset('storage/' . $path),
+                    'fileName' => $fileName,
+                    'mimeType' => $mimeType
+                ]);
+            }
+
+            // For other files, serve directly
+            return response()->file($filePath);
+        } catch (\Exception $e) {
+            Log::error('Error viewing document', [
+                'path' => $path,
+                'error' => $e->getMessage()
+            ]);
+            return response()->view('errors.document-error', [
+                'message' => $e->getMessage()
+            ], 500);
+        }
     })->where('path', '.*')->name('document.viewer');
 
     /**
@@ -620,6 +643,7 @@
                 Route::put('/products/{id}', 'updateProduct')->name('products.update');
                 Route::delete('/products/{id}', 'deleteProduct')->name('products.delete');
                 Route::get('/products/{id}/details', 'getProductDetails')->name('products.details');
+                Route::post('/products/{id}/mark-comment-read', 'markCommentRead')->name('products.mark_comment_read');
 
                 // Certificate Management Routes
                 Route::get('/certificates', 'certificatesPage')->name('certificates');

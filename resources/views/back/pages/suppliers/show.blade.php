@@ -127,10 +127,18 @@
                                                                     </h6>
                                                                     <p class="text-muted small">
                                                                         {{ $document->created_at->format('M d, Y') }}</p>
-                                                                    <a href="{{ $document->file_url }}" target="_blank"
-                                                                        class="btn btn-sm btn-primary">
-                                                                        <i class="fa fa-download"></i> View Document
-                                                                    </a>
+                                                                    <div class="d-flex gap-2 justify-content-center">
+                                                                        <a href="{{ asset('storage/' . $document->file_path) }}"
+                                                                            target="_blank"
+                                                                            class="btn btn-sm btn-primary">
+                                                                            <i class="fa fa-eye"></i> View
+                                                                        </a>
+                                                                        <a href="{{ asset('storage/' . $document->file_path) }}"
+                                                                            download="{{ $document->document_name }}"
+                                                                            class="btn btn-sm btn-outline-success">
+                                                                            <i class="fa fa-download"></i> Download
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

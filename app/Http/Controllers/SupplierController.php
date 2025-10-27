@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use App\Models\Supplier;
 use App\Models\SupplierProduct;
 use App\Models\ProductCategory;
 use App\Models\SupplierDocument;
+use App\Models\ProductComment;
 
 class SupplierController extends Controller
 {
@@ -20,8 +22,7 @@ class SupplierController extends Controller
         $stats = [
             'total_products' => SupplierProduct::where('supplier_id', $supplier->id)->active()->count(),
             'active_products' => SupplierProduct::where('supplier_id', $supplier->id)->active()->where('is_available', true)->count(),
-            'pending_products' => SupplierProduct::where('supplier_id', $supplier->id)->active()->where('is_approved', false)->count(),
-            'total_inquiries' => 0 // TODO: Add inquiry count
+            'pending_products' => SupplierProduct::where('supplier_id', $supplier->id)->active()->where('is_approved', false)->count()
         ];
 
         $recentProducts = SupplierProduct::where('supplier_id', $supplier->id)
@@ -30,10 +31,38 @@ class SupplierController extends Controller
             ->limit(5)
             ->get();
 
+        // Get recent unread comments for supplier's products
+        $recentComments = ProductComment::whereHas('product', function ($query) use ($supplier) {
+            $query->where('supplier_id', $supplier->id);
+        })
+            ->with(['product', 'admin'])
+            ->where('is_read_by_supplier', false)
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
+
+        // Get unread comments count
+        $unreadCommentsCount = ProductComment::whereHas('product', function ($query) use ($supplier) {
+            $query->where('supplier_id', $supplier->id);
+        })
+            ->where('is_read_by_supplier', false)
+            ->count();
+
+        // Get urgent unread comments count
+        $urgentCommentsCount = ProductComment::whereHas('product', function ($query) use ($supplier) {
+            $query->where('supplier_id', $supplier->id);
+        })
+            ->where('is_read_by_supplier', false)
+            ->where('is_urgent', true)
+            ->count();
+
         $data = [
             'pageTitle' => 'Dashboard',
             'stats' => $stats,
-            'recentProducts' => $recentProducts
+            'recentProducts' => $recentProducts,
+            'recentComments' => $recentComments,
+            'unreadCommentsCount' => $unreadCommentsCount,
+            'urgentCommentsCount' => $urgentCommentsCount,
         ];
 
         return view('back.pages.supplier.dashboard', $data);
@@ -253,13 +282,33 @@ class SupplierController extends Controller
     public function editProduct(Request $request, $id)
     {
         $supplier = Auth::guard('supplier')->user();
-        $product = SupplierProduct::where('supplier_id', $supplier->id)->active()->findOrFail($id);
+        $product = SupplierProduct::where('supplier_id', $supplier->id)->with(['comments.admin', 'documents'])->findOrFail($id);
         $categories = ProductCategory::where('is_active', true)->get();
+
+        // Get comments for this product
+        $comments = ProductComment::where('product_id', $product->id)
+            ->with('admin')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Get unread comments count
+        $unreadCommentsCount = ProductComment::where('product_id', $product->id)
+            ->where('is_read_by_supplier', false)
+            ->count();
+
+        // Get urgent comments count
+        $urgentCommentsCount = ProductComment::where('product_id', $product->id)
+            ->where('is_read_by_supplier', false)
+            ->where('is_urgent', true)
+            ->count();
 
         $data = [
             'pageTitle' => 'Edit Product',
             'product' => $product,
-            'categories' => $categories
+            'categories' => $categories,
+            'comments' => $comments,
+            'unreadCommentsCount' => $unreadCommentsCount,
+            'urgentCommentsCount' => $urgentCommentsCount,
         ];
 
         return view('back.pages.supplier.products.edit', $data);
@@ -663,17 +712,35 @@ class SupplierController extends Controller
         $supplier = Auth::guard('supplier')->user();
 
         $request->validate([
-            'setting_key' => 'required|string',
-            'setting_value' => 'required',
+            'email_notifications' => 'nullable|boolean',
+            'language' => 'nullable|string|in:en,ar,fr,es',
+            'timezone' => 'nullable|string',
         ]);
 
-        // Handle various settings updates
-        // This is a flexible endpoint for AJAX settings updates
+        // Prepare the data to update
+        $updateData = [];
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Settings updated successfully'
-        ]);
+        // Handle email notifications (checkbox)
+        if ($request->has('email_notifications')) {
+            $updateData['email_notifications'] = true;
+        } else {
+            $updateData['email_notifications'] = false;
+        }
+
+        // Handle language
+        if ($request->has('language')) {
+            $updateData['language'] = $request->language;
+        }
+
+        // Handle timezone
+        if ($request->has('timezone')) {
+            $updateData['timezone'] = $request->timezone;
+        }
+
+        // Update the supplier settings
+        $supplier->update($updateData);
+
+        return redirect()->back()->with('success', 'Settings updated successfully!');
     }
 
     public function changePassword(Request $request)
@@ -682,15 +749,13 @@ class SupplierController extends Controller
 
         $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required|min:8|confirmed',
+            'new_password' => 'required|min:8',
+            'new_password_confirmation' => 'required|same:new_password',
         ]);
 
         // Check if current password is correct
         if (!Hash::check($request->current_password, $supplier->password)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Current password is incorrect'
-            ], 422);
+            return redirect()->back()->with('error', 'Current password is incorrect!');
         }
 
         // Update password
@@ -698,10 +763,7 @@ class SupplierController extends Controller
             'password' => Hash::make($request->new_password)
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Password changed successfully'
-        ]);
+        return redirect()->back()->with('success', 'Password changed successfully!');
     }
 
     public function getProductDetails(Request $request, $id)
@@ -748,7 +810,7 @@ class SupplierController extends Controller
                 })
             ]);
         } catch (\Exception $e) {
-            \Log::error('Error in getProductDetails: ' . $e->getMessage());
+            Log::error('Error in getProductDetails: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Error loading product details: ' . $e->getMessage()
@@ -788,7 +850,7 @@ class SupplierController extends Controller
             'read_at' => now()
         ]);
 
-        \Log::info('Mark all notifications as read', [
+        Log::info('Mark all notifications as read', [
             'supplier_id' => $supplier->id,
             'unread_count_before' => $unreadCount,
             'updated_count' => $updatedCount
@@ -799,5 +861,35 @@ class SupplierController extends Controller
             'updated_count' => $updatedCount,
             'unread_count_before' => $unreadCount
         ]);
+    }
+
+    public function markCommentRead(Request $request, $id)
+    {
+        try {
+            $supplier = Auth::guard('supplier')->user();
+
+            // Find the comment and verify it belongs to one of this supplier's products
+            $comment = ProductComment::whereHas('product', function ($query) use ($supplier) {
+                $query->where('supplier_id', $supplier->id);
+            })
+                ->findOrFail($id);
+
+            // Mark the comment as read
+            $comment->update([
+                'is_read_by_supplier' => true,
+                'read_at' => now()
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Comment marked as read'
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error marking comment as read: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to mark comment as read'
+            ], 500);
+        }
     }
 }
