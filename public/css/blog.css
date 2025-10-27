@@ -1,0 +1,897 @@
+/* Blog System Styles */
+
+/* Blog Index Page */
+.blog-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+}
+
+.blog-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.blog-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Featured Article Card */
+.featured-article {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+.featured-article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.featured-article .card-img-top {
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.featured-article:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.featured-article .card-body {
+    padding: 2rem;
+}
+
+.featured-article .card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.featured-article .card-text {
+    color: #6c757d;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Article Grid */
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.article-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.article-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.article-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.article-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.article-card .card-body {
+    padding: 1.5rem;
+}
+
+.article-card .card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.article-card .card-text {
+    color: #6c757d;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+/* Category Badge */
+.category-badge {
+    display: inline-block;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.category-badge:hover {
+    color: white;
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+/* Meta Information */
+.article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.article-meta i {
+    margin-right: 0.3rem;
+}
+
+/* Read More Button */
+.read-more-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.read-more-btn:hover {
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Blog Sidebar */
+.blog-sidebar {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.blog-sidebar h5 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #667eea;
+}
+
+/* Search Form */
+.blog-search {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.blog-search input {
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.blog-search input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.blog-search i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+/* Category List */
+.category-list {
+    list-style: none;
+    padding: 0;
+}
+
+.category-list li {
+    margin-bottom: 0.5rem;
+}
+
+.category-list a {
+    color: #6c757d;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+}
+
+.category-list a:hover {
+    color: #667eea;
+}
+
+.category-list .badge {
+    background: #667eea;
+    font-size: 0.75rem;
+}
+
+/* Hierarchical Category Styles */
+.category-item {
+    position: relative;
+    margin-bottom: 2px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.category-item:hover {
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+.category-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.subcategory {
+    background: transparent !important;
+    border-left: none !important;
+    margin-left: 0 !important;
+    font-size: 0.9rem !important;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1) !important;
+    padding-left: 20px !important;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.subcategory::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: #x;
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+.subcategory:last-child {
+    border-bottom: none !important;
+}
+
+.subcategory:hover {
+    background: linear-gradient(
+        90deg,
+        rgba(102, 126, 234, 0.1) 0%,
+        transparent 100%
+    ) !important;
+    padding-left: 25px !important;
+}
+
+.subcategory:hover::before {
+    background: #764ba2;
+    transform: translateY(-50%) scale(1.2);
+}
+
+.subcategory-indent {
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.subcategory.active {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.subcategory.active::before {
+    background: white;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.subcategory.active .subcategory-indent {
+    color: white;
+    font-weight: 600;
+}
+
+.subcategory.active .badge {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced parent category styling */
+.category-item > .list-group-item {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-item > .list-group-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.category-item > .list-group-item:hover::before {
+    transform: scaleY(1);
+}
+
+.category-item > .list-group-item:hover {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.category-item > .list-group-item.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.category-item > .list-group-item.active::before {
+    transform: scaleY(1);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.category-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.category-item > .list-group-item:hover .category-name {
+    color: #667eea;
+}
+
+.category-item > .list-group-item.active .category-name {
+    color: white;
+    font-weight: 700;
+}
+
+/* Card Box Styles */
+.card-box {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+        0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card-box:hover {
+    box-shadow: 0px 12px 40px -6px rgba(24, 39, 75, 0.18),
+        0px 24px 100px -4px rgba(24, 39, 75, 0.2);
+    transform: translateY(-2px);
+}
+
+.card-box h5 {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    margin: 0;
+    padding: 15px 20px;
+    border-bottom: 2px solid #667eea;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.card-box .list-group {
+    border: none;
+    border-radius: 0;
+}
+
+.card-box .list-group-item {
+    border: none;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.card-box .list-group-item:last-child {
+    border-bottom: none;
+}
+
+.card-box .list-group-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(4px);
+}
+
+.card-box .list-group-item.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.card-box .list-group-item.active:hover {
+    transform: translateX(4px);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Category-specific card-box enhancements */
+.card-box .category-item {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.card-box .category-item:last-child {
+    border-radius: 0 0 12px 12px;
+}
+
+.card-box .subcategories-dropdown {
+    border-radius: 0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card-box .subcategory {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1) !important;
+}
+
+.card-box .subcategory:last-child {
+    border-bottom: none !important;
+    border-radius: 0 0 12px 12px;
+}
+
+.card-box .subcategory:hover {
+    background: linear-gradient(
+        90deg,
+        rgba(102, 126, 234, 0.1) 0%,
+        transparent 100%
+    ) !important;
+}
+
+.card-box .subcategory.active {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Hierarchical Tree Structure Styles */
+.category-item {
+    position: relative;
+    margin-bottom: 1px;
+    border-radius: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.category-item:hover {
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+/* Level-based styling - no indentation, just color differences */
+.level-1 {
+    padding-left: 0px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.level-2 {
+    padding-left: 0px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #666;
+    margin-left: 0px;
+}
+
+.level-3 {
+    padding-left: 0px;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: #888;
+    margin-left: 0px;
+}
+
+.level-4 {
+    padding-left: 0px;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-left: 0px;
+}
+
+.level-5 {
+    padding-left: 0px;
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: #ccc;
+    margin-left: 0px;
+}
+
+/* Tree connector styling */
+.tree-connector {
+    color: #6c757d;
+    font-family: monospace;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Category controls styling */
+.category-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tree-arrow {
+    transition: transform 0.3s ease;
+    font-size: 10px;
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* Dropdown toggle button styling */
+.dropdown-toggle {
+    background: none;
+    border: none;
+    padding: 4px 6px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-toggle:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.dropdown-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* Custom arrow using ::after pseudo-element */
+.dropdown-toggle::after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 6px;
+    vertical-align: middle;
+    border-top: 4px solid #667eea;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(-90deg);
+}
+
+/* Subcategories dropdown styling */
+.subcategories-dropdown {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+
+    margin: 0;
+    border-radius: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    max-height: 0;
+    opacity: 0;
+    display: none;
+}
+
+.subcategories-dropdown.show {
+    max-height: 1000px;
+    opacity: 1;
+}
+
+/* Enhanced parent category styling */
+.category-item > .list-group-item {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-item > .list-group-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.category-item > .list-group-item:hover::before {
+    transform: scaleY(1);
+}
+
+.category-item > .list-group-item:hover {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.category-item > .list-group-item.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.category-item > .list-group-item.active::before {
+    transform: scaleY(1);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.category-name {
+    font-weight: inherit;
+    font-size: inherit;
+    transition: all 0.3s ease;
+}
+
+.category-item > .list-group-item:hover .category-name {
+    color: #667eea;
+}
+
+.category-item > .list-group-item.active .category-name {
+    color: white;
+    font-weight: 700;
+}
+
+/* Level-specific styling */
+.level-2 .list-group-item {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-left: 2px solid #e9ecef;
+}
+
+.level-3 .list-group-item {
+    background: linear-gradient(135deg, #f1f3f4 0%, #f8f9fa 100%);
+    border-left: 2px solid #dee2e6;
+}
+
+.level-4 .list-group-item {
+    background: linear-gradient(135deg, #e9ecef 0%, #f1f3f4 100%);
+    border-left: 2px solid #ced4da;
+}
+
+.level-5 .list-group-item {
+    background: linear-gradient(135deg, #dee2e6 0%, #e9ecef 100%);
+    border-left: 2px solid #adb5bd;
+}
+
+/* Badge styling for different levels */
+.level-1 .badge {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.level-2 .badge {
+    background: linear-gradient(45deg, #6c757d, #495057);
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.level-3 .badge {
+    background: linear-gradient(45deg, #6c757d, #495057);
+    font-size: 0.65rem;
+    font-weight: 400;
+}
+
+.level-4 .badge,
+.level-5 .badge {
+    background: linear-gradient(45deg, #6c757d, #495057);
+    font-size: 0.6rem;
+    font-weight: 400;
+}
+
+/* All Categories badge styling - make it circular like Health & Wellness */
+.list-group-item .badge {
+    background: linear-gradient(45deg, #667eea, #764ba2 100%);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 50px;
+    min-width: 20px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Single Post Styles */
+.blog-post-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+}
+
+.blog-post-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.blog-post-meta {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.blog-post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #2c3e50;
+}
+
+.blog-post-content h2 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+}
+
+.blog-post-content h3 {
+    color: #495057;
+    font-weight: 600;
+    margin: 1.5rem 0 0.8rem 0;
+}
+
+.blog-post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Related Posts */
+.related-posts {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.related-posts h4 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .blog-hero h1 {
+        font-size: 2rem;
+    }
+
+    .blog-hero p {
+        font-size: 1rem;
+    }
+
+    .article-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .blog-post-title {
+        font-size: 2rem;
+    }
+
+    .blog-post-meta {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+/* Loading States */
+.blog-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
+.blog-loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: #667eea;
+}
+
+/* Empty States */
+.blog-empty {
+    text-align: center;
+    padding: 3rem;
+    color: #6c757d;
+}
+
+.blog-empty i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* Featured Badge */
+.featured-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+/* Image Upload Styles */
+.image-upload-area {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.image-upload-area:hover {
+    border-color: #667eea;
+}
+
+.image-upload-area.dragover {
+    border-color: #667eea;
+    background-color: rgba(102, 126, 234, 0.05);
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    margin-top: 1rem;
+}

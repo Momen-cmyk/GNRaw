@@ -1,0 +1,132 @@
+/* Wizard Steps CSS - Clean Horizontal Circular Design */
+
+/* Step Indicators Container */
+.wizard .steps ul {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Connecting Lines Between Steps */
+.wizard .steps ul li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 25px;
+    right: -50px;
+    width: 100px;
+    height: 2px;
+    background: #d1d5db;
+    z-index: 1;
+}
+
+/* Individual Step Items */
+.wizard .steps ul li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+    z-index: 2;
+    min-width: 120px;
+}
+
+/* Step Circles */
+.wizard .steps ul li a {
+    background: white;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Step Numbers */
+.wizard .steps ul li a .step {
+    font-size: 20px;
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+/* Step Labels */
+.wizard .steps ul li a .info {
+    display: block;
+    font-size: 14px;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+/* Active Step */
+.wizard .steps ul li.current a {
+    border-color: #6366f1;
+}
+.wizard .steps ul li.current a .step {
+    color: #6366f1;
+    font-weight: 700;
+}
+.wizard .steps ul li.current a .info {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+/* Completed Steps */
+.wizard .steps ul li.done a {
+    background: #10b981;
+    border-color: #10b981;
+}
+.wizard .steps ul li.done a .step {
+    color: white;
+    font-weight: 700;
+}
+.wizard .steps ul li.done a .info {
+    color: #1f2937;
+}
+
+/* Progress Line for Completed Steps */
+.wizard .steps ul li.done:not(:last-child)::after {
+    background: #10b981;
+}
+
+/* Actions/Buttons */
+.wizard .actions ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    list-style: none;
+}
+.wizard .actions ul li a {
+    background: #4f46e5;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.wizard .actions ul li.disabled a {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+.wizard .actions ul li a:hover:not(.disabled) {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+.wizard.vertical > .steps {
+    width: 25%;
+    float: left;
+}
+.wizard.vertical > .content {
+    width: 75%;
+    float: left;
+}

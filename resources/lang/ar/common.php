@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'dashboard' => 'لوحة التحكم',
+    'products' => 'المنتجات',
+    'certificates' => 'الشهادات',
+    'partnerships' => 'الشراكات',
+    'reports' => 'التقارير',
+    'profile' => 'الملف الشخصي',
+    'settings' => 'الإعدادات',
+    'logout' => 'تسجيل الخروج',
+    'welcome' => 'مرحباً',
+    'save' => 'حفظ',
+    'cancel' => 'إلغاء',
+    'edit' => 'تعديل',
+    'delete' => 'حذف',
+    'add' => 'إضافة',
+    'email_notifications' => 'إشعارات البريد الإلكتروني',
+    'language' => 'اللغة',
+    'timezone' => 'المنطقة الزمنية',
+    'theme' => 'المظهر',
+    'change_password' => 'تغيير كلمة المرور',
+    'current_password' => 'كلمة المرور الحالية',
+    'new_password' => 'كلمة المرور الجديدة',
+    'confirm_password' => 'تأكيد كلمة المرور',
+    'settings_updated' => 'تم تحديث الإعدادات بنجاح',
+    'password_changed' => 'تم تغيير كلمة المرور بنجاح',
+];

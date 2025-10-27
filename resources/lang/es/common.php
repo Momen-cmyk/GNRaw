@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'dashboard' => 'Panel de control',
+    'products' => 'Productos',
+    'certificates' => 'Certificados',
+    'partnerships' => 'Asociaciones',
+    'reports' => 'Informes',
+    'profile' => 'Perfil',
+    'settings' => 'Configuración',
+    'logout' => 'Cerrar sesión',
+    'welcome' => 'Bienvenido',
+    'save' => 'Guardar',
+    'cancel' => 'Cancelar',
+    'edit' => 'Editar',
+    'delete' => 'Eliminar',
+    'add' => 'Agregar',
+    'email_notifications' => 'Notificaciones por correo electrónico',
+    'language' => 'Idioma',
+    'timezone' => 'Zona horaria',
+    'theme' => 'Tema',
+    'change_password' => 'Cambiar contraseña',
+    'current_password' => 'Contraseña actual',
+    'new_password' => 'Nueva contraseña',
+    'confirm_password' => 'Confirmar contraseña',
+    'settings_updated' => 'Configuración actualizada exitosamente',
+    'password_changed' => 'Contraseña cambiada exitosamente',
+];
