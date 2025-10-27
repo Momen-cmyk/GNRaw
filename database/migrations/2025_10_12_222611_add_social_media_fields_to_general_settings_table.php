@@ -11,10 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('false', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        // Empty migration - no changes needed
     }
 
     /**
@@ -22,6 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('false');
+        // Empty migration - no changes needed
     }
 };

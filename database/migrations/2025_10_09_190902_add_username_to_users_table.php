@@ -12,9 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('username')->unique()->after('email');
-            $table->string('picture')->nullable()->after('username');
-            $table->text('bio')->nullable()->after('picture');
+            if (!Schema::hasColumn('users', 'username')) {
+                $table->string('username')->unique()->after('email');
+            }
+            if (!Schema::hasColumn('users', 'picture')) {
+                $table->string('picture')->nullable()->after('username');
+            }
+            if (!Schema::hasColumn('users', 'bio')) {
+                $table->text('bio')->nullable()->after('picture');
+            }
         });
     }
 

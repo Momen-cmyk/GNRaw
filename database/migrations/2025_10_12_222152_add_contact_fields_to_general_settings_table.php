@@ -12,13 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('general_settings', function (Blueprint $table) {
-            $table->string('site_address')->nullable()->after('site_phone');
-            $table->string('site_city')->nullable()->after('site_address');
-            $table->string('site_state')->nullable()->after('site_city');
-            $table->string('site_country')->nullable()->after('site_state');
-            $table->string('site_zip_code')->nullable()->after('site_country');
-            $table->string('site_website')->nullable()->after('site_zip_code');
-            $table->text('site_description')->nullable()->after('site_website');
+            if (!Schema::hasColumn('general_settings', 'site_address')) {
+                $table->string('site_address')->nullable()->after('site_phone');
+            }
+            if (!Schema::hasColumn('general_settings', 'site_city')) {
+                $table->string('site_city')->nullable()->after('site_address');
+            }
+            if (!Schema::hasColumn('general_settings', 'site_state')) {
+                $table->string('site_state')->nullable()->after('site_city');
+            }
+            if (!Schema::hasColumn('general_settings', 'site_country')) {
+                $table->string('site_country')->nullable()->after('site_state');
+            }
+            if (!Schema::hasColumn('general_settings', 'site_zip_code')) {
+                $table->string('site_zip_code')->nullable()->after('site_country');
+            }
+            if (!Schema::hasColumn('general_settings', 'site_website')) {
+                $table->string('site_website')->nullable()->after('site_zip_code');
+            }
+            if (!Schema::hasColumn('general_settings', 'site_description')) {
+                $table->text('site_description')->nullable()->after('site_website');
+            }
         });
     }
 
