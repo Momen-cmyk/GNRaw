@@ -59,8 +59,14 @@ class ProductCategory extends Model
     {
         // Use file system storage only
         if ($this->image) {
-            // Return proper storage URL
-            return asset('storage/' . $this->image);
+            // Return proper storage URL as relative path (works on any domain)
+            $imagePath = $this->image;
+            // Remove any leading slashes from image path
+            $imagePath = ltrim($imagePath, '/');
+            // Convert backslashes to forward slashes for proper URL format
+            $imagePath = str_replace('\\', '/', $imagePath);
+            // Return relative path that works on localhost and production
+            return '/storage/' . $imagePath;
         }
 
         return null;
