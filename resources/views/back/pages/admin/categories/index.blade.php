@@ -2,7 +2,12 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Categories')
 
 @section('content')
-    <!-- Page Header -->
+    @livewire('admin.category-manager')
+@endsection
+
+{{-- Old implementation kept for reference
+@section('content')
+<!-- Page Header -->
     <div class="page-header">
         <div class="row">
             <div class="col-md-12">
@@ -141,3 +146,4 @@
         </div>
     @endif
 @endsection
+--}}
