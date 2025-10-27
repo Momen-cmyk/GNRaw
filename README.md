@@ -530,7 +530,7 @@ tinymce.init({
 
     ```bash
     git clone <repository-url>
-    cd Genuine-nutra
+    cd GNRaw
     ```
 
 2. **Install PHP dependencies**
