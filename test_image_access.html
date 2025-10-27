@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Category Image Test</title>
+</head>
+<body>
+    <h1>Testing Category Image Access</h1>
+
+    <h2>Test Image URLs:</h2>
+
+    <h3>Test 1: Direct file access</h3>
+    <img src="/storage/categories/1761525038_round-neck-tshirt-mockup.png"
+         alt="Test Image"
+         style="width: 200px; border: 2px solid blue;"
+         onerror="this.style.border='2px solid red'; this.alt='IMAGE NOT FOUND'">
+
+    <h3>Test 2: Using asset() helper (Laravel way)</h3>
+    <p>This would normally use asset() but we're testing the file directly</p>
+
+    <hr>
+    <p><strong>Instructions:</strong></p>
+    <ol>
+        <li>Open this file in your browser: <code>http://localhost/Genuine-nutra/public/test_image_access.html</code></li>
+        <li>Check if the blue-bordered image appears above</li>
+        <li>If it shows with a red border, the image URL is wrong</li>
+    </ol>
+
+    <hr>
+    <h3>Correct URLs for your XAMPP setup:</h3>
+    <p>Access your app at: <strong>http://localhost/Genuine-nutra/public/</strong></p>
+    <p>Image should be at: <strong>http://localhost/Genuine-nutra/public/storage/categories/1761525038_round-neck-tshirt-mockup.png</strong></p>
+</body>
+</html>
+
